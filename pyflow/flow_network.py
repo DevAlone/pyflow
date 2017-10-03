@@ -9,8 +9,6 @@ class FlowNetwork:
         self.maximumFlowAlgorithm = None
 
     # make only one source and one sink
-    # also remove useless transitions
-    # such as going to source or from sink
     def _normalizeGraph(self, sources, sinks):
         if sources is int:
             sources = [sources]
@@ -19,12 +17,6 @@ class FlowNetwork:
 
         if len(sources) == 0 or len(sinks) == 0:
             return
-
-        # remove useless transitions
-        # for fromIndex, row in enumerate(self.graph):
-        #     for toIndex, bandwidth in enumerate(row):
-        #         if fromIndex == toIndex or fromIndex in sinks or toIndex in sources:
-        #             self.graph[fromIndex][toIndex] = 0
 
         self.sourceIndex = sources[0]
         self.sinkIndex = sinks[0]
@@ -61,7 +53,6 @@ class FlowNetwork:
             return 0
 
         self.maximumFlowAlgorithm.execute()
-        # return relabel_to_front(self.graph, self.sourceIndex, self.sinkIndex)
         return self.maximumFlowAlgorithm.getMaximumFlow()
 
     def setMaximumFlowAlgorithm(self, Algorithm):
